@@ -1,0 +1,50 @@
+.Header {
+    background-color: #696969;
+    position: fixed;
+    width: 100%;
+    top: 0;
+
+    &__nav {
+        margin: 0 auto;
+        max-width: 60%;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+
+        &__link {
+            &__item {
+                background: #696969;
+                color: white;
+                border: none;
+                padding: 20px 12px;
+                font-size: 15px;
+                cursor: pointer;
+
+                &:hover {
+                    background-color: #808080;
+                    transition: 0.3s all;
+                }
+            }
+        }
+
+        &__menu {
+            display: flex;
+
+            &__item {
+                color: white;
+                padding: 20px 12px;
+                margin-right: 12px;
+                font-size: 15px;
+                cursor: pointer;
+            }
+        }
+
+        &__pic {
+            img {
+                width: 100px;
+                height: 100px;
+            }
+        }
+    }
+
+}
