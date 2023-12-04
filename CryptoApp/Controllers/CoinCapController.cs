@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 using System;
+using System.Threading.Tasks;
 
 namespace CryptoApp.Controllers
 {
@@ -16,11 +17,11 @@ namespace CryptoApp.Controllers
 
         public CoinCapController(IConfiguration configuration, IHttpClientFactory httpClientFactory)
         {
+            
             _configuration = configuration;
 
             _httpClientFactory = httpClientFactory;
         }
-        [Route("api/getCryptoData")]
         [HttpGet("getCryptoData")]
         public async Task<JsonResult> GetCryptoData()
         {
@@ -54,15 +55,8 @@ namespace CryptoApp.Controllers
 
 
             }
-                if (response.IsSuccessStatusCode)
-                {
-                    var json = response.Content.ReadAsStringAsync();
-                    return new JsonResult(cryptoList);
-                }
-                else
-                {
-                    return null;
-                }
+            return new JsonResult(cryptoList);
+                
             
 
         }

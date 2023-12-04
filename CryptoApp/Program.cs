@@ -8,12 +8,29 @@ namespace CryptoApp
             var builder = WebApplication.CreateBuilder(args);
 
             // Add services to the container.
+            
+            builder.Services.AddCors(options =>
+            {
+                options.AddPolicy("AllowSpecificOrigin", builder =>
+                {
+                    builder
+                        .AllowAnyOrigin() // Замените на разрешенные домены
+                        .AllowAnyMethod()
+                        .AllowAnyHeader();
+                });
+            });
 
-            builder.Services.AddControllersWithViews();
+            builder.Services.AddControllers();
             builder.Services.AddHttpClient();
 
             var app = builder.Build();
+            app.MapControllers();
 
+            app.UseCors("AllowSpecificOrigin");
+            if (app.Environment.IsDevelopment())
+            {
+                app.UseDeveloperExceptionPage();
+            }
             // Configure the HTTP request pipeline.
             if (!app.Environment.IsDevelopment())
             {
@@ -26,9 +43,7 @@ namespace CryptoApp
             app.UseRouting();
 
 
-            app.MapControllerRoute(
-                name: "default",
-                pattern: "{controller}/{action=Index}/{id?}");
+            
 
             app.MapFallbackToFile("index.html");
 
