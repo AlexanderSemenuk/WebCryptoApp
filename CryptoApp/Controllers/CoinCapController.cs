@@ -13,6 +13,9 @@ namespace CryptoApp.Controllers
     {
         private readonly IConfiguration _configuration;
         private readonly IHttpClientFactory _httpClientFactory;
+        private readonly HttpClient _httpClient;
+        private readonly Dictionary<string, Cryptocurrency> _cryptoDictionary;
+
 
 
         public CoinCapController(IConfiguration configuration, IHttpClientFactory httpClientFactory)
@@ -21,12 +24,13 @@ namespace CryptoApp.Controllers
             _configuration = configuration;
 
             _httpClientFactory = httpClientFactory;
+            _httpClient = _httpClientFactory.CreateClient();
+            _cryptoDictionary = new Dictionary<string, Cryptocurrency>();
         }
         [HttpGet("getCryptoData")]
         public async Task<JsonResult> GetCryptoData()
         {
-            var client = _httpClientFactory.CreateClient();
-            var cryptoList = new List<Cryptocurrency>();
+            var client = _httpClient;
 
             string apiUrl = "https://api.coincap.io/v2/assets";
 
@@ -50,14 +54,14 @@ namespace CryptoApp.Controllers
                     vwap24Hr = item.vwap24Hr == null ? "-" : item.vwap24Hr,
                     imageUrl = $"https://assets.coincap.io/assets/icons/{item.symbol.ToString().ToLower()}@2x.png"
                 };
-                cryptoList.Add(cryptocurrency);
+                _cryptoDictionary[cryptocurrency.id] = cryptocurrency;
 
 
 
             }
-            return new JsonResult(cryptoList);
-                
-            
+            return new JsonResult(_cryptoDictionary.Values.ToList());
+
+
 
         }
     }
