@@ -1,4 +1,5 @@
 ﻿using CryptoApp.Models;
+using CryptoApp.Services;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
@@ -11,57 +12,30 @@ namespace CryptoApp.Controllers
     [ApiController]
     public class CoinCapController : ControllerBase
     {
-        private readonly IConfiguration _configuration;
-        private readonly IHttpClientFactory _httpClientFactory;
-        private readonly HttpClient _httpClient;
-        private readonly Dictionary<string, Cryptocurrency> _cryptoDictionary;
+        private readonly ICoinCapService _coinCapService;
 
-
-
-        public CoinCapController(IConfiguration configuration, IHttpClientFactory httpClientFactory)
+        public CoinCapController(ICoinCapService coinCapService)
         {
-            
-            _configuration = configuration;
-
-            _httpClientFactory = httpClientFactory;
-            _httpClient = _httpClientFactory.CreateClient();
-            _cryptoDictionary = new Dictionary<string, Cryptocurrency>();
+            _coinCapService = coinCapService;
         }
         [HttpGet("getCryptoData")]
         public async Task<JsonResult> GetCryptoData()
         {
-            var client = _httpClient;
-
-            string apiUrl = "https://api.coincap.io/v2/assets";
-
-            var response = await client.GetAsync(apiUrl);
-            var jsonObject = JsonConvert.DeserializeObject<dynamic>(await response.Content.ReadAsStringAsync());
-            var dataArray = jsonObject.data;
-            foreach (var item in dataArray)
+            var cryptoData = await _coinCapService.GetCryptoData();
+            return new JsonResult(cryptoData);
+        }
+        [HttpGet("getCryptocurrency/{id}")]
+        public async Task<ActionResult> GetCryptocurrency(string id)
+        {
+            var cryptoData = await _coinCapService.GetCryptocurrency(id);
+            if (cryptoData != null)
             {
-                Cryptocurrency cryptocurrency = new Cryptocurrency
-                {
-                    id = item.id,
-                    rank = item.rank,
-                    symbol = item.symbol,
-                    name = item.name,
-                    supply = item.supply,
-                    maxSupply = item.maxSupply == null ? "Infinite" : item.maxSupply,
-                    marketCapUsd = item.marketCapUsd,
-                    volumeUsd24Hr = item.volumeUsd24Hr,
-                    priceUsd = item.priceUsd,
-                    changePercent24Hr = item.changePercent24Hr,
-                    vwap24Hr = item.vwap24Hr == null ? "-" : item.vwap24Hr,
-                    imageUrl = $"https://assets.coincap.io/assets/icons/{item.symbol.ToString().ToLower()}@2x.png"
-                };
-                _cryptoDictionary[cryptocurrency.id] = cryptocurrency;
-
-
-
+                return new JsonResult(cryptoData);
             }
-            return new JsonResult(_cryptoDictionary.Values.ToList());
-
-
+            else
+            {
+                return NotFound($"Cryptocurrency with id {id} not found.");
+            }
 
         }
     }
