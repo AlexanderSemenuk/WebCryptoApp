@@ -30,19 +30,48 @@ const StyledTableRow = styled(TableRow)(({ theme }) => ({
   },
 }));
 
-function createData(name, calories, fat, carbs, protein) {
-  return { name, calories, fat, carbs, protein };
-}
+export default function CustomizedTables({ data }) {
+  const formatNumber = (number) => {
+    // Округляем число до двух знаков после запятой
+    const roundedNumber = parseFloat(number).toFixed(2);
 
-const rows = [
-  createData("Bitcoin"),
-  createData("Ethereum"),
-  createData("Tether"),
-  createData("BNB"),
-  createData("XRP"),
-];
+    // Разделяем число на целую и десятичную части
+    let [integerPart, decimalPart] = roundedNumber.split(".");
 
-export default function CustomizedTables() {
+    // Добавляем разделитель для тысяч в целой части
+    integerPart = integerPart.replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+
+    // Собираем отформатированное число
+    const formattedNumber = decimalPart
+      ? `${integerPart}.${decimalPart}`
+      : integerPart;
+
+    // Определяем суффиксы для тысяч, миллионов, миллиардов и т.д.
+    const suffixes = ["", "K", "M", "B", "T"];
+
+    let suffixIndex = 0;
+    let formattedNumberWithSuffix = parseFloat(number);
+
+    while (
+      formattedNumberWithSuffix >= 1000 &&
+      suffixIndex < suffixes.length - 1
+    ) {
+      formattedNumberWithSuffix /= 1000;
+      suffixIndex++;
+    }
+
+    // Округляем число до двух знаков после запятой
+    formattedNumberWithSuffix = parseFloat(
+      formattedNumberWithSuffix.toFixed(2)
+    );
+
+    // Добавляем суффикс
+    const numberWithSuffix =
+      formattedNumberWithSuffix.toString() + suffixes[suffixIndex];
+
+    return { formattedNumber, numberWithSuffix };
+  };
+
   return (
     <div className="Table">
       <div className="Table__prices">Crypto prices</div>
@@ -52,29 +81,35 @@ export default function CustomizedTables() {
             <TableRow>
               <StyledTableCell>Name</StyledTableCell>
               <StyledTableCell align="right">Price</StyledTableCell>
-              <StyledTableCell align="right">Chart&nbsp;</StyledTableCell>
-              <StyledTableCell align="right">Change&nbsp;</StyledTableCell>
-              <StyledTableCell align="right">Market Cap&nbsp;</StyledTableCell>
-              <StyledTableCell align="right">
-                Volume (24h)&nbsp;
-              </StyledTableCell>
-              <StyledTableCell align="right">Supply&nbsp;</StyledTableCell>
-              <StyledTableCell align="right">Trade&nbsp;</StyledTableCell>
+              <StyledTableCell align="right">Chart</StyledTableCell>
+              <StyledTableCell align="right">Change</StyledTableCell>
+              <StyledTableCell align="right">Market Cap</StyledTableCell>
+              <StyledTableCell align="right">Volume (24h)</StyledTableCell>
+              <StyledTableCell align="right">Supply</StyledTableCell>
+              <StyledTableCell align="right">Trade</StyledTableCell>
             </TableRow>
           </TableHead>
           <TableBody>
-            {rows.map((row) => (
-              <StyledTableRow key={row.name}>
+            {data.map((item) => (
+              <StyledTableRow key={item.id}>
                 <StyledTableCell component="th" scope="row">
-                  {row.name}
+                  {item.name}
                 </StyledTableCell>
-                <StyledTableCell align="right">{row.price}</StyledTableCell>
-                <StyledTableCell align="right">{row.Chart}</StyledTableCell>
-                <StyledTableCell align="right">{row.Change}</StyledTableCell>
-                <StyledTableCell align="right">{row.MarketCap}</StyledTableCell>
-                <StyledTableCell align="right">{row.Volume}</StyledTableCell>
-                <StyledTableCell align="right">{row.Supply}</StyledTableCell>
-                <StyledTableCell align="right">{row.Trade} </StyledTableCell>
+                <StyledTableCell align="right">
+                  ${formatNumber(item.priceUsd).formattedNumber}
+                </StyledTableCell>
+                <StyledTableCell align="right">{item.Chart}</StyledTableCell>
+                <StyledTableCell align="right">{item.Change}</StyledTableCell>
+                <StyledTableCell align="right">
+                  ${formatNumber(item.marketCapUsd).numberWithSuffix}
+                </StyledTableCell>
+                <StyledTableCell align="right">
+                  ${formatNumber(item.volumeUsd24Hr).numberWithSuffix}
+                </StyledTableCell>
+                <StyledTableCell align="right">
+                  {formatNumber(item.supply).numberWithSuffix}
+                </StyledTableCell>
+                <StyledTableCell align="right">{item.Trade} </StyledTableCell>
               </StyledTableRow>
             ))}
           </TableBody>

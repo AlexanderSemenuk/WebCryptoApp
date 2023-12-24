@@ -1,17 +1,18 @@
-import AppHeader from "../appheader/AppHeader";
-import CryptoInfo from "../cryptoInfo/CryptoInfo";
-import SearchBar from "../searchBar/searchBar";
-import CustomizedTables from "../table/Table";
+import React from "react";
+import { useState } from "react";
 
-function HomePage() {
+import AppHeader from "../appheader/AppHeader";
+import SearchBar from "../searchBar/searchBar";
+import CryptoContentBlock from "../cryptoContentBlock/cryptoContentBlock";
+
+const HomePage = () => {
   return (
     <div>
       <AppHeader />
       <SearchBar />
-      <CryptoInfo />
-      <CustomizedTables />
+      <CryptoContentBlock />
     </div>
   );
-}
+};
 
 export default HomePage;

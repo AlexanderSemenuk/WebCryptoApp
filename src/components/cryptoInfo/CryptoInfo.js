@@ -1,10 +1,13 @@
+import React from "react";
+import { useState } from "react";
+
 import "./cryptoInfo.scss";
 
-const CryptoInfo = () => {
+const CryptoInfo = ({ data }) => {
   return (
     <div className="Crypto">
       <div className="Crypto__new">
-        <span>New on Coinbase</span>
+        <span>New on Crypto-bull</span>
         <div>
           <img
             src="https://cdn.discordapp.com/attachments/855187055940075530/1161619083045916692/logo.png?ex=6538f513&is=65268013&hm=d2010aff8bee0d47d49b18166cfba3fe83009190db34d8da8094181f76e0941d&"
