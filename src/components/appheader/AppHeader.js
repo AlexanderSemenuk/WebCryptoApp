@@ -8,29 +8,21 @@ const AppHeader = () => {
   return (
     <div className="Header">
       <div className="Header__nav">
-        <div className="Header__nav__link">
-          <button className="Header__nav__link__item" href="#">
-            Coins
-          </button>
-          <button className="Header__nav__link__item" href="#">
-            Exchanges
-          </button>
-          <button className="Header__nav__link__item" href="#">
-            Swap
-          </button>
-        </div>
         <div className="Header__nav__pic">
           <img src={imageUrl} alt="logo" />
         </div>
         <div className="Header__nav__menu">
-          <div className="Header__nav__menu__item">USD</div>
           <div className="Header__nav__menu__item">English</div>
-          {/* <div className="Header__nav__menu__item">
-            <FontAwesomeIcon icon={faMagnifyingGlass} />
+          <div className="Header__nav__menu__item">
+            <button className="Header__nav__menu__item button button__white">
+              Sign in
+            </button>
           </div>
           <div className="Header__nav__menu__item">
-            <FontAwesomeIcon icon={faGear} />
-          </div> */}
+            <button className="Header__nav__menu__item button button__blue">
+              Sign up
+            </button>
+          </div>
         </div>
       </div>
     </div>

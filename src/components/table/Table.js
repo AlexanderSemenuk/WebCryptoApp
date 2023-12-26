@@ -1,4 +1,5 @@
 import * as React from "react";
+import { useState } from "react";
 import { styled } from "@mui/material/styles";
 import Table from "@mui/material/Table";
 import TableBody from "@mui/material/TableBody";
@@ -12,8 +13,8 @@ import "./Table.scss";
 
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
   [`&.${tableCellClasses.head}`]: {
-    // backgroundColor: theme.palette.common.green,
     color: theme.palette.common.white,
+    backgroundColor: "rgb(118, 118, 233)",
   },
   [`&.${tableCellClasses.body}`]: {
     fontSize: 14,
@@ -31,6 +32,8 @@ const StyledTableRow = styled(TableRow)(({ theme }) => ({
 }));
 
 export default function CustomizedTables({ data }) {
+  const [displayCount, setDisplayCount] = useState(20);
+
   const formatNumber = (number) => {
     // Округляем число до двух знаков после запятой
     const roundedNumber = parseFloat(number).toFixed(2);
@@ -72,9 +75,20 @@ export default function CustomizedTables({ data }) {
     return { formattedNumber, numberWithSuffix };
   };
 
+  const limitedData = data.slice(0, displayCount);
+
+  const loadMore = () => {
+    setDisplayCount(displayCount + 10);
+  };
+
   return (
     <div className="Table">
-      <div className="Table__prices">Crypto prices</div>
+      <div className="Table__choose">
+        <span className="Table__choose__header">Crypto prices</span>
+        <button className="Table__choose__button">USD</button>
+        <button className="Table__choose__button">1D</button>
+      </div>
+
       <TableContainer component={Paper}>
         <Table sx={{ minWidth: 700 }} aria-label="customized table">
           <TableHead>
@@ -90,7 +104,7 @@ export default function CustomizedTables({ data }) {
             </TableRow>
           </TableHead>
           <TableBody>
-            {data.map((item) => (
+            {limitedData.map((item) => (
               <StyledTableRow key={item.id}>
                 <StyledTableCell component="th" scope="row">
                   {item.name}
@@ -109,12 +123,17 @@ export default function CustomizedTables({ data }) {
                 <StyledTableCell align="right">
                   {formatNumber(item.supply).numberWithSuffix}
                 </StyledTableCell>
-                <StyledTableCell align="right">{item.Trade} </StyledTableCell>
+                <StyledTableCell align="right">
+                  <button className="Table__button">Trade</button>
+                </StyledTableCell>
               </StyledTableRow>
             ))}
           </TableBody>
         </Table>
       </TableContainer>
+      <button onClick={loadMore} className="Table__load">
+        Load More
+      </button>
     </div>
   );
 }
