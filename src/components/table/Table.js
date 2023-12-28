@@ -84,7 +84,7 @@ export default function CustomizedTables({ data }) {
   return (
     <div className="Table">
       <div className="Table__choose">
-        <span className="Table__choose__header">Crypto prices</span>
+        <h1 className="Table__choose__header">Crypto prices</h1>
         <button className="Table__choose__button">USD</button>
         <button className="Table__choose__button">1D</button>
       </div>
