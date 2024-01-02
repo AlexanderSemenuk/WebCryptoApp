@@ -90,7 +90,7 @@ export default function CustomizedTables({ data }) {
             </TableRow>
           </TableHead>
           <TableBody>
-            {data.map((item) => (
+                      {Object.values(data).map((item) => (
               <StyledTableRow key={item.id}>
                 <StyledTableCell component="th" scope="row">
                   {item.name}

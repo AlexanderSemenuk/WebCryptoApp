@@ -42,6 +42,7 @@ namespace CryptoApp.Services
                     priceUsd = item.priceUsd,
                     changePercent24Hr = item.changePercent24Hr,
                     vwap24Hr = item.vwap24Hr == null ? "-" : item.vwap24Hr,
+                    explorer = item.explorer,
                     imageUrl = $"https://assets.coincap.io/assets/icons/{item.symbol.ToString().ToLower()}@2x.png"
                 };
 

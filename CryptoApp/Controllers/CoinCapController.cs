@@ -23,18 +23,14 @@ namespace CryptoApp.Controllers
         {
             var cryptoData = await _coinCapService.GetCryptoData();
 
-            // Преобразуем значения словаря в список
-            var cryptoList = cryptoData.Values.ToList();
-
-            // Создаем анонимный объект с ключом "data"
             var result = new
             {
-                data = cryptoList
+                data = cryptoData
             };
 
-            // Возвращаем объект в формате JSON
             return result;
         }
+
 
 
 
