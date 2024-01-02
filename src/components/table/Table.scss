@@ -31,6 +31,11 @@
         background-color: rgb(118, 118, 233);
         color: white;
         cursor: pointer;
+
+        &:hover {
+            background-color: rgb(93, 93, 224);
+            transition: 0.3s all;
+        }
     }
 
     &__load {

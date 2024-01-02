@@ -41,24 +41,30 @@
         &__name {
             display: flex;
             justify-content: space-around;
-        }
 
-        &__label {
-            display: flex;
-            align-items: flex-start;
-            flex-direction: column;
-            margin: 5px 0;
-            font-size: 20px;
-            color: black;
-        }
+            &__label {
+                display: flex;
+                align-items: flex-start;
+                flex-direction: column;
+                margin: 5px 0;
+                font-size: 20px;
+                color: black;
+            }
 
-        &__input {
-            border-radius: 8px;
-            border: 1px solid;
-            margin-top: 6px;
-            width: 225px;
-            height: 35px;
-            font-size: 18px;
+            &__button {
+                margin-left: 75%;
+                transform: translateY(-140%);
+            }
+
+
+            &__input {
+                border-radius: 8px;
+                border: 1px solid;
+                margin-top: 6px;
+                width: 225px;
+                height: 35px;
+                font-size: 18px;
+            }
         }
 
         &__reg {
@@ -71,6 +77,11 @@
             color: white;
             cursor: pointer;
             font-size: 22px;
+
+            &:hover {
+                background-color: rgb(93, 93, 224);
+                transition: 0.3s all;
+            }
         }
 
         &__check {

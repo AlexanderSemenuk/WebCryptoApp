@@ -45,10 +45,20 @@
     &__white {
         color: black;
         background-color: white;
+
+        &:hover {
+            background-color: rgb(214, 203, 203);
+            transition: 0.3s all;
+        }
     }
 
     &__blue {
         background-color: blue;
+
+        &:hover {
+            background-color: rgb(5, 5, 129);
+            transition: 0.3s all;
+        }
     }
 
 }

@@ -23,7 +23,7 @@ const CryptoContentBlock = () => {
     fetchData();
   }, []);
   console.log(cryptoData);
-  if (cryptoData == 0) {
+  if (cryptoData === 0) {
     return null;
   }
   return (

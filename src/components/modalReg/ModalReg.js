@@ -7,6 +7,7 @@ const ModalReg = ({ onClose }) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [isChecked, setChecked] = useState(false);
+  const [showPassword, setShowPassword] = useState(false);
 
   useEffect(() => {
     const handleEscapeKeyPress = (event) => {
@@ -24,10 +25,28 @@ const ModalReg = ({ onClose }) => {
     };
   }, [onClose]);
 
-  const handleRegistration = () => {
-    // Ваша логика для обработки регистрации
-    console.log("Registration:", { firstName, lastName, email, password });
-    onClose(); // Закрыть модальное окно после регистрации
+  const handleRegistration = (e) => {
+    e.preventDefault();
+    if (
+      firstName &&
+      lastName &&
+      email &&
+      password !== "" &&
+      isChecked === true
+    ) {
+      console.log("Registration:", { firstName, lastName, email, password });
+      onClose();
+    } else if (
+      firstName &&
+      lastName &&
+      email &&
+      password !== "" &&
+      isChecked === false
+    ) {
+      console.log("Set checkbox");
+    } else {
+      console.log("Invalid email or password");
+    }
   };
 
   const handleCheckboxChange = () => {
@@ -48,20 +67,20 @@ const ModalReg = ({ onClose }) => {
           government-issued ID.
         </h3>
         <div className="modal__content__name">
-          <label className="modal__content__label">
+          <label className="modal__content__name__label">
             Legal first name:
             <input
-              className="modal__content__input"
+              className="modal__content__name__input"
               // placeholder="Legal first name"
               type="text"
               value={firstName}
               onChange={(e) => setfirstName(e.target.value)}
             />
           </label>
-          <label className="modal__content__label">
+          <label className="modal__content__name__label">
             Legal last name:
             <input
-              className="modal__content__input"
+              className="modal__content__name__input"
               // placeholder="Legal last name"
               type="text"
               value={lastName}
@@ -70,28 +89,33 @@ const ModalReg = ({ onClose }) => {
           </label>
         </div>
         <div className="modal__content__name">
-          <label className="modal__content__label">
+          <label className="modal__content__name__label">
             Email:
             <input
-              className="modal__content__input"
+              className="modal__content__name__input"
               // placeholder="Email"
               type="Email"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
             />
           </label>
-          <label className="modal__content__label">
+          <label className="modal__content__name__label">
             Password:
             <input
-              className="modal__content__input"
-              // placeholder="Password"
-              type="password"
+              className="modal__content__name__input"
+              type={showPassword ? "text" : "password"}
               value={password}
               onChange={(e) => setPassword(e.target.value)}
             />
+            <button
+              className="modal__content__name__button"
+              type="button"
+              onClick={() => setShowPassword(!showPassword)}
+            >
+              {showPassword ? "Hide" : "Show"}
+            </button>
           </label>
         </div>
-
         <div className="modal__content__check">
           <label>
             <input
