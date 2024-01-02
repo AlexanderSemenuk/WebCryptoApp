@@ -19,11 +19,25 @@ namespace CryptoApp.Controllers
             _coinCapService = coinCapService;
         }
         [HttpGet("getCryptoData")]
-        public async Task<JsonResult> GetCryptoData()
+        public async Task<ActionResult<object>> GetCryptoData()
         {
             var cryptoData = await _coinCapService.GetCryptoData();
-            return new JsonResult(cryptoData);
+
+            // Преобразуем значения словаря в список
+            var cryptoList = cryptoData.Values.ToList();
+
+            // Создаем анонимный объект с ключом "data"
+            var result = new
+            {
+                data = cryptoList
+            };
+
+            // Возвращаем объект в формате JSON
+            return result;
         }
+
+
+
         [HttpGet("getCryptocurrency/{id}")]
         public async Task<ActionResult> GetCryptocurrency(string id)
         {
@@ -36,6 +50,21 @@ namespace CryptoApp.Controllers
             {
                 return NotFound($"Cryptocurrency with id {id} not found.");
             }
+
+        }
+        [HttpGet("getTopMovers")]
+        public async Task<JsonResult> GetTopMovers()
+        {
+            var cryptoData = await _coinCapService.GetTopThreeCryptocurrencies();
+
+            var result = new
+            {
+                data = cryptoData
+            };
+
+            // Возвращаем объект в формате JSON
+            return new JsonResult(result);
+
 
         }
     }

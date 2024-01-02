@@ -1,4 +1,6 @@
 
+using CryptoApp.Services;
+
 namespace CryptoApp
 {
     public class Program
@@ -20,8 +22,10 @@ namespace CryptoApp
                 });
             });
 
+
             builder.Services.AddControllers();
             builder.Services.AddHttpClient();
+            builder.Services.AddScoped<ICoinCapService, CoinCapService>();
 
             var app = builder.Build();
             app.MapControllers();

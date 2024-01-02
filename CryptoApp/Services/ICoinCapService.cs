@@ -7,5 +7,7 @@ namespace CryptoApp.Services
         Task<Dictionary<string, Cryptocurrency>> GetCryptoData();
 
         Task<Cryptocurrency> GetCryptocurrency(string id);
+
+        Task<List<Cryptocurrency>> GetTopThreeCryptocurrencies();
     }
 }

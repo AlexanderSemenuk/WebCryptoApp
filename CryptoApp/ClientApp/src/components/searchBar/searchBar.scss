@@ -1,0 +1,30 @@
+.search {
+    display: flex;
+    margin: 10% 0 100px 0;
+    flex-direction: column;
+    align-items: center;
+
+    // &__wrapper {}
+
+    &__info {
+        margin: 0 0 10px 0;
+
+        span {
+            &:nth-child(1) {
+                font-size: 35px;
+            }
+
+            &:nth-child(3) {
+                display: flex;
+                justify-content: center;
+                font-size: 15px;
+            }
+        }
+
+    }
+
+    div {
+        border-radius: 28px;
+        width: 500px;
+    }
+}

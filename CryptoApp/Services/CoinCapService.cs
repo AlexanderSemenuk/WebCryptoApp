@@ -26,7 +26,6 @@ namespace CryptoApp.Services
             var jsonObject = JsonConvert.DeserializeObject<dynamic>(await response.Content.ReadAsStringAsync());
             var dataArray = jsonObject.data;
 
-            var cryptoList = new List<Cryptocurrency>();
 
             foreach (var item in dataArray)
             {
@@ -60,5 +59,18 @@ namespace CryptoApp.Services
             Cryptocurrency cryptoObject = _cryptoDictionary.Values.FirstOrDefault(crypto => crypto.id == id);
             return cryptoObject;
         }
+        public async Task<List<Cryptocurrency>> GetTopThreeCryptocurrencies()
+        {
+            if (_cryptoDictionary.Count == 0)
+            {
+                await GetCryptoData();
+            }
+            var sortedCryptoList = _cryptoDictionary.Values.OrderByDescending(crypto => crypto.changePercent24Hr).ToList();
+
+            var topThreeCryptocurrencies = sortedCryptoList.Take(3).ToList();
+
+            return topThreeCryptocurrencies;
+        }
+
     }
 }
