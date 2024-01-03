@@ -1,11 +1,16 @@
 import React, { useEffect, useState } from "react";
 import "./ModalReg.scss";
 
+import VisibilityIcon from "@mui/icons-material/Visibility";
+import VisibilityOffIcon from "@mui/icons-material/VisibilityOff";
+
 const ModalReg = ({ onClose }) => {
-  const [firstName, setfirstName] = useState("");
-  const [lastName, setlastName] = useState("");
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+  const [userdata, setUserdata] = useState({
+    firstName: "",
+    lastName: "",
+    email: "",
+    password: "",
+  });
   const [isChecked, setChecked] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
 
@@ -27,6 +32,7 @@ const ModalReg = ({ onClose }) => {
 
   const handleRegistration = (e) => {
     e.preventDefault();
+    const { firstName, lastName, email, password } = userdata;
     if (
       firstName &&
       lastName &&
@@ -73,8 +79,10 @@ const ModalReg = ({ onClose }) => {
               className="modal__content__name__input"
               // placeholder="Legal first name"
               type="text"
-              value={firstName}
-              onChange={(e) => setfirstName(e.target.value)}
+              value={userdata.firstName}
+              onChange={(e) =>
+                setUserdata({ ...userdata, firstName: e.target.value })
+              }
             />
           </label>
           <label className="modal__content__name__label">
@@ -83,8 +91,10 @@ const ModalReg = ({ onClose }) => {
               className="modal__content__name__input"
               // placeholder="Legal last name"
               type="text"
-              value={lastName}
-              onChange={(e) => setlastName(e.target.value)}
+              value={userdata.lastName}
+              onChange={(e) =>
+                setUserdata({ ...userdata, lastName: e.target.value })
+              }
             />
           </label>
         </div>
@@ -95,8 +105,10 @@ const ModalReg = ({ onClose }) => {
               className="modal__content__name__input"
               // placeholder="Email"
               type="Email"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
+              value={userdata.email}
+              onChange={(e) =>
+                setUserdata({ ...userdata, email: e.target.value })
+              }
             />
           </label>
           <label className="modal__content__name__label">
@@ -104,15 +116,17 @@ const ModalReg = ({ onClose }) => {
             <input
               className="modal__content__name__input"
               type={showPassword ? "text" : "password"}
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
+              value={userdata.password}
+              onChange={(e) =>
+                setUserdata({ ...userdata, password: e.target.value })
+              }
             />
             <button
               className="modal__content__name__button"
               type="button"
               onClick={() => setShowPassword(!showPassword)}
             >
-              {showPassword ? "Hide" : "Show"}
+              {showPassword ? <VisibilityIcon /> : <VisibilityOffIcon />}
             </button>
           </label>
         </div>

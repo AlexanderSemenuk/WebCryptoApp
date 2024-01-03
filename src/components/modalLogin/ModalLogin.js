@@ -3,8 +3,7 @@ import React, { useState, useEffect } from "react";
 import "./ModalLogin.scss";
 
 const LoginForm = ({ onClose }) => {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+  const [userdata, setUserdata] = useState({ email: "", password: "" });
   const [showPassword, setShowPassword] = useState(false);
 
   useEffect(() => {
@@ -23,6 +22,7 @@ const LoginForm = ({ onClose }) => {
 
   const handleLogin = (e) => {
     e.preventDefault();
+    const { email, password } = userdata;
     if (email && password !== "") {
       // Логика для отправки данных на сервер
       console.log("Login:", { email, password });
@@ -55,8 +55,10 @@ const LoginForm = ({ onClose }) => {
             className="Login__content__label__input"
             placeholder="Your email adress"
             type="text"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
+            value={userdata.email}
+            onChange={(e) =>
+              setUserdata({ ...userdata, email: e.target.value })
+            }
           />
         </label>
         <label className="Login__content__label">
@@ -65,8 +67,10 @@ const LoginForm = ({ onClose }) => {
             <input
               className="Login__content__label__input"
               type={showPassword ? "text" : "password"}
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
+              value={userdata.password}
+              onChange={(e) =>
+                setUserdata({ ...userdata, password: e.target.value })
+              }
             />
             <button
               className="Login__content__label__input__button"

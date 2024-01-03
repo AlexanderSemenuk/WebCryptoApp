@@ -75,7 +75,7 @@ export default function CustomizedTables({ data }) {
     return { formattedNumber, numberWithSuffix };
   };
 
-  const limitedData = data.slice(0, displayCount);
+  const limitedData = data?.slice(0, displayCount);
 
   const loadMore = () => {
     setDisplayCount(displayCount + 10);
@@ -104,9 +104,10 @@ export default function CustomizedTables({ data }) {
             </TableRow>
           </TableHead>
           <TableBody>
-            {limitedData.map((item) => (
+            {limitedData?.map((item) => (
               <StyledTableRow key={item.id}>
                 <StyledTableCell component="th" scope="row">
+                  <img src={item.imageUrl} alt="thumbnail" />
                   {item.name}
                 </StyledTableCell>
                 <StyledTableCell align="right">
