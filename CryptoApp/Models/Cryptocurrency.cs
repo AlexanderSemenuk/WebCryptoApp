@@ -9,9 +9,9 @@
         public string supply { get; set; }
         public string maxSupply { get; set; }
         public string marketCapUsd { get; set; }
-        public string volumeUsd24Hr { get; set; }
-        public string priceUsd { get; set; }
-        public string changePercent24Hr { get; set; }
+        public double volumeUsd24Hr { get; set; }
+        public decimal priceUsd { get; set; }
+        public double changePercent24Hr { get; set; }
         public string vwap24Hr { get; set; }
         public string explorer { get; set; }
 

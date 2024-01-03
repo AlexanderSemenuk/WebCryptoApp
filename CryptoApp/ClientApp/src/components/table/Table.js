@@ -90,9 +90,10 @@ export default function CustomizedTables({ data }) {
             </TableRow>
           </TableHead>
           <TableBody>
-                      {Object.values(data).map((item) => (
+          {Object.values(data).map((item) => (
               <StyledTableRow key={item.id}>
-                <StyledTableCell component="th" scope="row">
+                  <StyledTableCell component="th" scope="row">
+                      <img src={item.imageUrl} alt="thumbnail" />
                   {item.name}
                 </StyledTableCell>
                 <StyledTableCell align="right">

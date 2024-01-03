@@ -20,7 +20,7 @@ namespace CryptoApp.Services
 
         public async Task<Dictionary<string, Cryptocurrency>> GetCryptoData()
         {
-            string apiUrl = "https://api.coincap.io/v2/assets";
+            string apiUrl = "https://api.coincap.io/v2/assets?limit=2000";
 
             var response = await _httpClient.GetAsync(apiUrl);
             var jsonObject = JsonConvert.DeserializeObject<dynamic>(await response.Content.ReadAsStringAsync());
@@ -38,9 +38,9 @@ namespace CryptoApp.Services
                     supply = item.supply,
                     maxSupply = item.maxSupply == null ? "Infinite" : item.maxSupply,
                     marketCapUsd = item.marketCapUsd,
-                    volumeUsd24Hr = item.volumeUsd24Hr,
-                    priceUsd = item.priceUsd,
-                    changePercent24Hr = item.changePercent24Hr,
+                    volumeUsd24Hr = item.volumeUsd24Hr != null ? Convert.ToDouble(item.volumeUsd24Hr) : 0.0,
+                    priceUsd = item.priceUsd != null ? Convert.ToDecimal(item.priceUsd) : 0.0m,
+                    changePercent24Hr = item.changePercent24Hr != null ? Convert.ToDouble(item.changePercent24Hr) : 0.0,
                     vwap24Hr = item.vwap24Hr == null ? "-" : item.vwap24Hr,
                     explorer = item.explorer,
                     imageUrl = $"https://assets.coincap.io/assets/icons/{item.symbol.ToString().ToLower()}@2x.png"
