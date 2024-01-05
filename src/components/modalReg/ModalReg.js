@@ -1,4 +1,6 @@
 import React, { useEffect, useState } from "react";
+import crypto from "crypto";
+import "core-js";
 import "./ModalReg.scss";
 
 import VisibilityIcon from "@mui/icons-material/Visibility";
@@ -30,6 +32,12 @@ const ModalReg = ({ onClose }) => {
     };
   }, [onClose]);
 
+  const md5Hash = (data) => {
+    const hash = crypto.createHash("md5");
+    hash.update(data);
+    return hash.digest("hex");
+  };
+
   const handleRegistration = (e) => {
     e.preventDefault();
     const { firstName, lastName, email, password } = userdata;
@@ -40,7 +48,14 @@ const ModalReg = ({ onClose }) => {
       password !== "" &&
       isChecked === true
     ) {
-      console.log("Registration:", { firstName, lastName, email, password });
+      const hashedPassword = md5Hash(password);
+      console.log("Registration:", {
+        firstName,
+        lastName,
+        email,
+        password,
+        hashedPassword,
+      });
       onClose();
     } else if (
       firstName &&
