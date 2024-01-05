@@ -2,6 +2,9 @@ import React, { useState, useEffect } from "react";
 
 import "./ModalLogin.scss";
 
+import VisibilityIcon from "@mui/icons-material/Visibility";
+import VisibilityOffIcon from "@mui/icons-material/VisibilityOff";
+
 const LoginForm = ({ onClose }) => {
   const [userdata, setUserdata] = useState({ email: "", password: "" });
   const [showPassword, setShowPassword] = useState(false);
@@ -77,7 +80,7 @@ const LoginForm = ({ onClose }) => {
               type="button"
               onClick={() => setShowPassword(!showPassword)}
             >
-              {showPassword ? "Hide" : "Show"}
+              {showPassword ? <VisibilityIcon /> : <VisibilityOffIcon />}
             </button>
           </div>
         </label>

@@ -28,6 +28,7 @@
                 color: black;
                 background-color: white;
                 max-width: 100%;
+                transform: translateY(-104%) translateX(55%);
             }
 
             &__img {
@@ -57,9 +58,11 @@
                 padding: 3px 0;
 
                 &__button {
-                    margin-left: 80%;
+                    margin-left: 85%;
+                    transform: translateY(-115%);
+                    border: none;
                     cursor: pointer;
-                    transform: translateY(-39px);
+                    background-color: #fff;
                 }
             }
         }
