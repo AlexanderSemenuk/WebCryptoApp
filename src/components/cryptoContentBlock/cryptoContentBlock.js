@@ -6,6 +6,7 @@ import SearchBar from "../searchBar/searchBar";
 const CryptoContentBlock = () => {
   const [cryptoData, setCryptoData] = useState([]);
   const [filteredData, setFilteredData] = useState([]);
+  const [searchTimeout, setSearchTimeout] = useState(null);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -23,10 +24,18 @@ const CryptoContentBlock = () => {
   }, []);
 
   const handleSearch = (searchValue) => {
-    const filteredResults = cryptoData.filter((item) =>
-      item.name.toLowerCase().includes(searchValue.toLowerCase())
-    );
-    setFilteredData(filteredResults);
+    if (searchTimeout) {
+      clearTimeout(searchTimeout);
+    }
+
+    const timeout = setTimeout(() => {
+      const filteredResults = cryptoData.filter((item) =>
+        item.name.toLowerCase().includes(searchValue.toLowerCase())
+      );
+      setFilteredData(filteredResults);
+    }, 500);
+
+    setSearchTimeout(timeout);
   };
 
   if (cryptoData.length === 0) {
