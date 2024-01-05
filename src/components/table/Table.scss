@@ -50,6 +50,11 @@
         color: white;
         cursor: pointer;
         border: none;
+
+        &:hover {
+            background-color: rgb(93, 93, 224);
+            transition: 0.3s all;
+        }
     }
 
 }

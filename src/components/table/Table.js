@@ -78,7 +78,7 @@ export default function CustomizedTables({ data }) {
   const limitedData = data?.slice(0, displayCount);
 
   const loadMore = () => {
-    setDisplayCount(displayCount + 10);
+    setDisplayCount((prevDisplayCount) => prevDisplayCount + 10);
   };
 
   return (
@@ -132,9 +132,11 @@ export default function CustomizedTables({ data }) {
           </TableBody>
         </Table>
       </TableContainer>
-      <button onClick={loadMore} className="Table__load">
-        Load More
-      </button>
+      {data.length > displayCount && (
+        <button onClick={loadMore} className="Table__load">
+          Load More
+        </button>
+      )}
     </div>
   );
 }
