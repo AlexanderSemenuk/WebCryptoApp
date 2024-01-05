@@ -1,10 +1,14 @@
 import React from "react";
-// import { useState } from "react";
 import { TextField, Icon } from "@mui/material";
 
 import "./searchBar.scss";
 
-const SearchBar = () => {
+const SearchBar = ({ onSearch }) => {
+  const handleInputChange = (e) => {
+    const inputValue = e.target.value;
+    onSearch(inputValue);
+  };
+
   return (
     <div className="search">
       <div className="search__info">
@@ -13,7 +17,11 @@ const SearchBar = () => {
         <span>In the past 24 hours the market is</span>
       </div>
       <div className="search__wrapper">
-        <TextField label="Search for an asset" icon={<Icon>search</Icon>} />
+        <TextField
+          label="Search for an asset"
+          onChange={handleInputChange}
+          icon={<Icon>search</Icon>}
+        />
       </div>
     </div>
   );
