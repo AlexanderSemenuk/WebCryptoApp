@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { Link } from "react-router-dom";
 
 import "./AppHeader.scss";
 
@@ -17,13 +18,15 @@ const AppHeader = () => {
   };
 
   const imageUrl =
-    "https://cdn.discordapp.com/attachments/855187055940075530/1161619083045916692/logo.png?ex=6538f513&is=65268013&hm=d2010aff8bee0d47d49b18166cfba3fe83009190db34d8da8094181f76e0941d&";
+    "https://cdn.discordapp.com/attachments/855187055940075530/1161619083045916692/logo.png?ex=65b0ed93&is=659e7893&hm=a987675ab796b0d248a41c06bb5464a23dc0b671b73f23149a0c61d071aa0321&";
   return (
     <div className="Header">
       <div className="Header__nav">
-        <div className="Header__nav__pic">
-          <img src={imageUrl} alt="logo" />
-        </div>
+        <Link to={`/`}>
+          <div className="Header__nav__pic">
+            <img src={imageUrl} alt="logo" />
+          </div>
+        </Link>
         <div className="Header__nav__menu">
           <div className="Header__nav__menu__item">English</div>
           <div className="Header__nav__menu__item">
