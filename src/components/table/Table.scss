@@ -1,5 +1,5 @@
 .Table {
-    width: 65%;
+    width: 72%;
     margin-left: 2%;
 
     &__choose {
@@ -11,8 +11,7 @@
         &__header {
             font-size: 34px;
             margin: 15px 10% 15px 15px;
-            padding-right: 60%;
-
+            padding-right: 57%;
         }
 
         &__button {
@@ -21,6 +20,7 @@
             border-radius: 20px;
             border: none;
             cursor: pointer;
+            margin-right: 1%;
         }
     }
 
@@ -58,8 +58,25 @@
         }
     }
 
+    &__thumbnail {
+        width: 35px;
+        height: 35px;
+    }
+
+    &__name {
+        display: flex;
+        align-items: center;
+    }
+
+    &__name span {
+        margin-left: 3px;
+    }
 }
 
-.MuiTableHead-root {
-    background-color: #696969;
+.negative {
+    color: red;
+}
+
+.positive {
+    color: green;
 }
