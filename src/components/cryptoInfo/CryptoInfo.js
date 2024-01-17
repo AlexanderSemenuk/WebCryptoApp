@@ -1,133 +1,62 @@
-import React from "react";
-// import { useState } from "react";
+import React, { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
+import { formatPercentage, formatedNumber } from "./../function/function.js";
 
 import "./cryptoInfo.scss";
 
-const CryptoInfo = ({ data }) => {
+const CryptoInfo = () => {
+  const [cryptoData, setCryptoData] = useState([]);
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await fetch(
+          "http://212.227.173.28:5000/api/Crypto/getTopMovers"
+        );
+        const data = await response.json();
+        setCryptoData(data.data);
+      } catch (error) {
+        console.error("Error fetching data:", error);
+      }
+    };
+
+    fetchData();
+  }, []);
+
+  if (!cryptoData || cryptoData.length === 0) {
+    return <div>Loading...</div>;
+  }
+
   return (
     <div className="Crypto">
-      <div className="Crypto__new">
-        <span>New on Crypto-bull</span>
-        <div>
-          <img
-            src="https://cdn.discordapp.com/attachments/855187055940075530/1161619083045916692/logo.png?ex=6538f513&is=65268013&hm=d2010aff8bee0d47d49b18166cfba3fe83009190db34d8da8094181f76e0941d&"
-            alt=""
-          />
-          <span></span>
-          <span></span>
-          <span></span>
-        </div>
-        <div>
-          <img
-            src="https://cdn.discordapp.com/attachments/855187055940075530/1161619083045916692/logo.png?ex=6538f513&is=65268013&hm=d2010aff8bee0d47d49b18166cfba3fe83009190db34d8da8094181f76e0941d&"
-            alt=""
-          />
-          <span></span>
-          <span></span>
-          <span></span>
-        </div>
-        <div>
-          <img
-            src="https://cdn.discordapp.com/attachments/855187055940075530/1161619083045916692/logo.png?ex=6538f513&is=65268013&hm=d2010aff8bee0d47d49b18166cfba3fe83009190db34d8da8094181f76e0941d&"
-            alt=""
-          />
-          <span></span>
-          <span></span>
-          <span></span>
-        </div>
-      </div>
-      <div className="Crypto__biggest">
-        <span>Biggest Movers</span>
-        <span>24h</span>
-        <div>
-          <img
-            src="https://cdn.discordapp.com/attachments/855187055940075530/1161619083045916692/logo.png?ex=6538f513&is=65268013&hm=d2010aff8bee0d47d49b18166cfba3fe83009190db34d8da8094181f76e0941d&"
-            alt=""
-          />
-          <span></span>
-          <span></span>
-          <span></span>
-        </div>
-        <div>
-          <img
-            src="https://cdn.discordapp.com/attachments/855187055940075530/1161619083045916692/logo.png?ex=6538f513&is=65268013&hm=d2010aff8bee0d47d49b18166cfba3fe83009190db34d8da8094181f76e0941d&"
-            alt=""
-          />
-          <span></span>
-          <span></span>
-          <span></span>
-        </div>
-        <div>
-          <img
-            src="https://cdn.discordapp.com/attachments/855187055940075530/1161619083045916692/logo.png?ex=6538f513&is=65268013&hm=d2010aff8bee0d47d49b18166cfba3fe83009190db34d8da8094181f76e0941d&"
-            alt=""
-          />
-          <span></span>
-          <span></span>
-          <span></span>
-        </div>
-      </div>
-      <div className="Crypto__trend">
-        <span>Trending</span>
-        <span>24h views</span>
-        <div>
-          <img
-            src="https://cdn.discordapp.com/attachments/855187055940075530/1161619083045916692/logo.png?ex=6538f513&is=65268013&hm=d2010aff8bee0d47d49b18166cfba3fe83009190db34d8da8094181f76e0941d&"
-            alt=""
-          />
-          <span></span>
-          <span></span>
-          <span></span>
-        </div>
-        <div>
-          <img
-            src="https://cdn.discordapp.com/attachments/855187055940075530/1161619083045916692/logo.png?ex=6538f513&is=65268013&hm=d2010aff8bee0d47d49b18166cfba3fe83009190db34d8da8094181f76e0941d&"
-            alt=""
-          />
-          <span></span>
-          <span></span>
-          <span></span>
-        </div>
-        <div>
-          <img
-            src="https://cdn.discordapp.com/attachments/855187055940075530/1161619083045916692/logo.png?ex=6538f513&is=65268013&hm=d2010aff8bee0d47d49b18166cfba3fe83009190db34d8da8094181f76e0941d&"
-            alt=""
-          />
-          <span></span>
-          <span></span>
-          <span></span>
-        </div>
-      </div>
-      <div className="Crypto__free">
-        <span>Free crypto</span>
-        <div>
-          <img
-            src="https://cdn.discordapp.com/attachments/855187055940075530/1161619083045916692/logo.png?ex=6538f513&is=65268013&hm=d2010aff8bee0d47d49b18166cfba3fe83009190db34d8da8094181f76e0941d&"
-            alt=""
-          />
-          <span></span>
-          <span></span>
-          <span></span>
-        </div>
-        <div>
-          <img
-            src="https://cdn.discordapp.com/attachments/855187055940075530/1161619083045916692/logo.png?ex=6538f513&is=65268013&hm=d2010aff8bee0d47d49b18166cfba3fe83009190db34d8da8094181f76e0941d&"
-            alt=""
-          />
-          <span></span>
-          <span></span>
-          <span></span>
-        </div>
-        <div>
-          <img
-            src="https://cdn.discordapp.com/attachments/855187055940075530/1161619083045916692/logo.png?ex=6538f513&is=65268013&hm=d2010aff8bee0d47d49b18166cfba3fe83009190db34d8da8094181f76e0941d&"
-            alt=""
-          />
-          <span></span>
-          <span></span>
-          <span></span>
-        </div>
-      </div>
+      <span className="Crypto__header">
+        <b>Biggest Movers</b>
+      </span>
+      <span className="Crypto__subheader">24h</span>
+      {cryptoData?.map((item) => (
+        <li
+          className="Crypto__item"
+          key={item.id}
+          onClick={() => {
+            navigate(`/crypto/${item.id}`);
+          }}
+        >
+          <img src={item.imageUrl} alt="thumbnail" />
+          <div className="Crypto__info">
+            <div className="Crypto__name">
+              <span>
+                <b>{item.name}</b>
+              </span>
+              <span>{item.symbol}</span>
+            </div>
+            <div className="Crypto__price">
+              <span>${formatedNumber(item.priceUsd)}</span>
+              <span>{formatPercentage(item.changePercent24Hr)}</span>
+            </div>
+          </div>
+        </li>
+      ))}
     </div>
   );
 };
