@@ -11,7 +11,9 @@ const CryptoContentBlock = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await fetch("https://api.coincap.io/v2/assets");
+        const response = await fetch(
+          "http://212.227.173.28:5000/api/Crypto/getAll"
+        );
         const data = await response.json();
         setCryptoData(data.data);
         setFilteredData(data.data);
@@ -21,7 +23,15 @@ const CryptoContentBlock = () => {
     };
 
     fetchData();
+
+    const intervalId = setInterval(() => {
+      fetchData();
+    }, 15000);
+
+    return () => clearInterval(intervalId);
   }, []);
+
+  const dataArray = Object.values(cryptoData);
 
   const handleSearch = (searchValue) => {
     if (searchTimeout) {
@@ -29,7 +39,7 @@ const CryptoContentBlock = () => {
     }
 
     const timeout = setTimeout(() => {
-      const filteredResults = cryptoData.filter((item) =>
+      const filteredResults = dataArray.filter((item) =>
         item.name.toLowerCase().includes(searchValue.toLowerCase())
       );
       setFilteredData(filteredResults);
@@ -45,7 +55,7 @@ const CryptoContentBlock = () => {
   return (
     <>
       <SearchBar onSearch={handleSearch} />
-      <CryptoInfo data={cryptoData.data} />
+      <CryptoInfo />
       <CustomizedTables data={filteredData} />
     </>
   );
