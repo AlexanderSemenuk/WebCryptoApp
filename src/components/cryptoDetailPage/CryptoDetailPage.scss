@@ -1,0 +1,36 @@
+.CryptoPage {
+    margin-top: 6%;
+
+    &__header {
+        max-width: 1300px;
+        margin: 0 auto;
+        display: flex;
+        justify-content: flex-start;
+        align-items: center;
+    }
+
+    &__header span {
+        font-size: 40px;
+        margin-left: 3px;
+    }
+
+    &__header h2 {
+        font-size: 40px;
+    }
+
+    &__Price {
+        max-width: 1300px;
+        margin: 0 auto;
+        display: flex;
+        flex-direction: column;
+    }
+
+    &__Price span:nth-child(1) {
+        font-size: 16px;
+    }
+
+    &__Price span:nth-child(2) {
+        font-size: 40px;
+    }
+
+}
