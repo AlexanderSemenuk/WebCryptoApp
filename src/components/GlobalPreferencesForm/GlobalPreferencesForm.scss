@@ -1,0 +1,60 @@
+.ModalBackdrop {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    z-index: 998;
+}
+
+.GlobalPreferencesFormModal {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    z-index: 999;
+
+    form {
+        max-width: 100%;
+
+        h2 {
+            font-size: 1.5em;
+            margin-bottom: 20px;
+        }
+
+        div {
+            margin-bottom: 20px;
+
+            label {
+                display: block;
+                margin-bottom: 8px;
+            }
+
+            select {
+                width: 100%;
+                padding: 10px;
+                font-size: 16px;
+                border: 1px solid #ddd;
+                border-radius: 4px;
+                box-sizing: border-box;
+            }
+
+            p {
+                margin-top: 8px;
+                color: #666;
+            }
+        }
+
+        button {
+            border: none;
+            cursor: pointer;
+            background-color: #fff;
+            font-size: 25px;
+        }
+    }
+}
