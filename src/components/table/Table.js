@@ -64,10 +64,6 @@ const CustomizedTables = ({ data }) => {
 
   const dataArray = Object.values(data);
 
-  const limitedData = Array.isArray(dataArray)
-    ? dataArray.slice(0, displayCount)
-    : [];
-
   const loadMore = () => {
     setDisplayCount((prevDisplayCount) => prevDisplayCount + 10);
   };
@@ -84,7 +80,7 @@ const CustomizedTables = ({ data }) => {
     );
   };
 
-  const sortedData = [...limitedData].sort((a, b) => {
+  const sortedData = [...dataArray].sort((a, b) => {
     const fieldA = a[sortOrder.field];
     const fieldB = b[sortOrder.field];
 
@@ -94,6 +90,9 @@ const CustomizedTables = ({ data }) => {
       return fieldB - fieldA;
     }
   });
+  const limitedData = Array.isArray(sortedData)
+    ? sortedData.slice(0, displayCount)
+    : [];
 
   return (
     <div className="Table">
@@ -178,7 +177,7 @@ const CustomizedTables = ({ data }) => {
           </TableHead>
 
           <TableBody>
-            {sortedData?.map((item) => (
+            {limitedData?.map((item) => (
               <StyledTableRow
                 key={item.id}
                 onClick={() => {
@@ -191,6 +190,10 @@ const CustomizedTables = ({ data }) => {
                       src={item.imageUrl}
                       alt="thumbnail"
                       className="Table__thumbnail"
+                      onError={(e) => {
+                        e.target.src =
+                          "https://cdn.discordapp.com/attachments/855187055940075530/1161619083045916692/logo.png?ex=65c36293&is=65b0ed93&hm=cb690e6ef95f1a36aace54556c6aa6cb97082a4875cb79d536c0003366fa256f&";
+                      }}
                     />
                     <span>{item.name}</span>
                   </div>
@@ -214,13 +217,19 @@ const CustomizedTables = ({ data }) => {
                   </span>
                 </StyledTableCell>
                 <StyledTableCell align="right">
-                  ${formatNumber(item.marketCapUsd).numberWithSuffix}
+                  $
+                  {item.marketCapUsd > 0
+                    ? `${formatNumber(item.marketCapUsd).numberWithSuffix}`
+                    : "0"}
                 </StyledTableCell>
                 <StyledTableCell align="right">
                   ${formatNumber(item.volumeUsd24Hr).numberWithSuffix}
                 </StyledTableCell>
                 <StyledTableCell align="right">
-                  {formatNumber(item.supply).numberWithSuffix}
+                  $
+                  {item.supply > 0
+                    ? `${formatNumber(item.supply).numberWithSuffix}`
+                    : "0"}
                 </StyledTableCell>
                 <StyledTableCell align="center">
                   <button className="Table__button">Trade</button>
