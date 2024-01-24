@@ -7,6 +7,7 @@ const CryptoContentBlock = () => {
   const [cryptoData, setCryptoData] = useState([]);
   const [filteredData, setFilteredData] = useState([]);
   const [searchTimeout, setSearchTimeout] = useState(null);
+  const [totalChange, setTotalChange] = useState(0);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -17,6 +18,13 @@ const CryptoContentBlock = () => {
         const data = await response.json();
         setCryptoData(data.data);
         setFilteredData(data.data);
+
+        const totalChangeValue = Object.values(data.data).reduce(
+          (accumulator, crypto) => accumulator + crypto.changePercent24Hr,
+          0
+        );
+
+        setTotalChange(totalChangeValue);
       } catch (error) {
         console.error("Error fetching data:", error);
       }
@@ -26,7 +34,7 @@ const CryptoContentBlock = () => {
 
     const intervalId = setInterval(() => {
       fetchData();
-    }, 15000);
+    }, 10000);
 
     return () => clearInterval(intervalId);
   }, []);
@@ -54,7 +62,7 @@ const CryptoContentBlock = () => {
 
   return (
     <>
-      <SearchBar onSearch={handleSearch} />
+      <SearchBar onSearch={handleSearch} totalChange={totalChange} />
       <CryptoInfo />
       <CustomizedTables data={filteredData} />
     </>
