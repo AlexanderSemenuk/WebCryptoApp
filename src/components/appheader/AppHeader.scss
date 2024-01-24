@@ -21,8 +21,11 @@
                 margin-right: 20px;
                 font-size: 15px;
                 cursor: pointer;
+            }
 
-
+            &__language {
+                margin-top: 12%;
+                border-radius: 20px;
             }
         }
 
@@ -30,10 +33,42 @@
             img {
                 width: 80px;
                 height: 80px;
+                cursor: pointer;
             }
         }
     }
 
+    &__links {
+        display: flex;
+
+        &__link {
+            padding: 7px;
+
+            button {
+                font-size: 15px;
+                cursor: pointer;
+                background-color: rgb(118, 118, 233);
+                border: none;
+                color: white;
+                position: relative;
+
+                &:hover {
+                    transition: 0.3s ease-in-out;
+
+                    &::after {
+                        content: "";
+                        position: absolute;
+                        bottom: 0;
+                        left: 50%;
+                        transform: translateX(-50%);
+                        width: 50px;
+                        height: 3px;
+                        background-color: white;
+                    }
+                }
+            }
+        }
+    }
 }
 
 .button {
@@ -60,5 +95,4 @@
             transition: 0.3s all;
         }
     }
-
 }

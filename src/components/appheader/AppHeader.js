@@ -1,13 +1,16 @@
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
+import LanguageIcon from "@mui/icons-material/Language";
 
 import "./AppHeader.scss";
 
 import ModalLogin from "../modalLogin/ModalLogin";
 import ModalReg from "../modalReg/ModalReg";
+import GlobalPreferencesForm from "../GlobalPreferencesForm/GlobalPreferencesForm";
 
 const AppHeader = () => {
   const [activeModal, setActiveModal] = useState(null);
+  const navigate = useNavigate();
 
   const openModal = (modalType) => {
     setActiveModal(modalType);
@@ -22,13 +25,47 @@ const AppHeader = () => {
   return (
     <div className="Header">
       <div className="Header__nav">
-        <Link to={`/`}>
-          <div className="Header__nav__pic">
-            <img src={imageUrl} alt="logo" />
+        <div className="Header__nav__pic">
+          <img
+            src={imageUrl}
+            alt="logo"
+            onClick={() => {
+              navigate(`/`);
+            }}
+          />
+        </div>
+        <div className="Header__links">
+          <div
+            className="Header__links__link"
+            onClick={() => {
+              navigate(`/crypto`);
+            }}
+          >
+            <button>Explore</button>
           </div>
-        </Link>
+          <div className="Header__links__link">
+            <button>Learn</button>
+          </div>
+          <div className="Header__links__link">
+            <button>Individuals</button>
+          </div>
+          <div className="Header__links__link">
+            <button>Businesses</button>
+          </div>
+          <div className="Header__links__link">
+            <button>Developers</button>
+          </div>
+          <div className="Header__links__link">
+            <button>Company</button>
+          </div>
+        </div>
         <div className="Header__nav__menu">
-          <div className="Header__nav__menu__item">English</div>
+          <div className="Header__nav__menu__item">
+            <LanguageIcon
+              className="Header__nav__menu__language"
+              onClick={() => openModal("preferences")}
+            />
+          </div>
           <div className="Header__nav__menu__item">
             <button
               onClick={() => openModal("login")}
@@ -47,6 +84,9 @@ const AppHeader = () => {
           </div>
           {activeModal === "login" && <ModalLogin onClose={closeModal} />}
           {activeModal === "register" && <ModalReg onClose={closeModal} />}
+          {activeModal === "preferences" && (
+            <GlobalPreferencesForm onClose={closeModal} />
+          )}
         </div>
       </div>
     </div>
