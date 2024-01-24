@@ -4,25 +4,33 @@
     flex-direction: column;
     align-items: center;
 
+    div {
+        border-radius: 28px;
+        width: 500px;
+    }
+
     &__info {
         margin-bottom: 10px;
 
-        span {
-            &:nth-child(1) {
-                font-size: 35px;
-            }
+        &__header {
+            font-size: 40px;
+        }
 
-            &:nth-child(3) {
-                display: flex;
-                justify-content: center;
-                font-size: 15px;
+        &__market {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 18px;
+
+            span {
+                &:nth-child(2) {
+                    margin-left: 1%;
+                }
             }
         }
 
     }
 
-    div {
-        border-radius: 28px;
-        width: 500px;
-    }
+    &__wrapper {}
+
 }
