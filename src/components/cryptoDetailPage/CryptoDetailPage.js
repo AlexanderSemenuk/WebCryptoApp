@@ -31,7 +31,14 @@ const CryptoDetailPage = () => {
   return (
     <div className="CryptoPage">
       <div className="CryptoPage__header">
-        <img src={cryptoData.imageUrl} alt="thumbnail" />
+        <img
+          src={cryptoData.imageUrl}
+          alt="thumbnail"
+          onError={(e) => {
+            e.target.src =
+              "https://cdn.discordapp.com/attachments/855187055940075530/1161619083045916692/logo.png?ex=65c36293&is=65b0ed93&hm=cb690e6ef95f1a36aace54556c6aa6cb97082a4875cb79d536c0003366fa256f&";
+          }}
+        />
         <h2>{cryptoData.name}</h2>
         <span>{cryptoData.symbol}</span>
       </div>
