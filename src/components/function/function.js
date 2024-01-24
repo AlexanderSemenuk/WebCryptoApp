@@ -42,18 +42,15 @@ export const formatNumber = (number) => {
 };
 
 export function formatedNumber(number) {
-  const [integerPart, decimalPart] = number.toString().split(".");
+  const roundedNumber = parseFloat(number).toFixed(2);
 
-  const formattedIntegerPart = integerPart.replace(
-    /\B(?=(\d{3})+(?!\d))/g,
-    ","
-  );
+  let [integerPart, decimalPart] = roundedNumber.split(".");
 
-  const formattedDecimalPart = decimalPart
-    ? parseFloat(`0.${decimalPart}`).toFixed(2).slice(2)
-    : "00";
+  integerPart = integerPart.replace(/\B(?=(\d{3})+(?!\d))/g, ",");
 
-  const formattedNumber = `${formattedIntegerPart}.${formattedDecimalPart}`;
+  const formatNumber = decimalPart
+    ? `${integerPart}.${decimalPart}`
+    : integerPart;
 
-  return formattedNumber;
+  return formatNumber;
 }
